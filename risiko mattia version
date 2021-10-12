@@ -1,0 +1,62 @@
+def dadi():
+  from random import randrange
+  import heapq
+
+  blu= [randrange(1,7,1),randrange(1,7,1),randrange(1,7,1)] #3 dadi blu
+  red= [randrange(1,7,1),randrange(1,7,1),randrange(1,7,1) ] #3 dadi rossi
+
+  max1blu=max(blu)
+  max1red=max(red)
+  #creo una lista dove sommo le volte che vince blu o rosso
+  lstblu=0
+  lstred=0
+  if max1blu >= max1red:
+    lstred-=1
+  else:
+    lstblu-=1
+  blu.remove(max(blu))
+  red.remove(max(red))
+  max2blu=max(blu)
+  max2red=max(red)
+  if max2blu >= max2red:
+    lstred-=1
+  else:
+    lstblu-=1
+  blu.remove(max(blu))
+  red.remove(max(red))
+  max3blu=max(blu)
+  max3red=max(red)
+  if max3blu >= max3red:
+    lstred-=1
+  else:
+    lstblu-=1
+  return (lstblu,lstred)
+
+#richiedere quanti lanci
+print ("How many times do you want to rolls the dice?")
+rolls=int(input()) #richiedo numero lanci
+
+rollnum=0
+lst21=0 #blu perde due red 1
+lst12=0 #blu perde una e red 2
+lst03=0 #red perde tre armate
+lst30=0 #blu perde tre armate
+
+while rollnum<rolls:
+  vardado=dadi() #creo coppia quante armate perdo
+  #print(vardado)
+  if vardado==(-2, -1):
+    lst21+=1
+  elif vardado==(0, -3):
+    lst03+=1
+  elif vardado==(-3, 0):
+    lst30+=1
+  elif vardado ==(-1,-2):
+    lst12+=1
+  
+  rollnum+=1
+
+totalredlost=lst03*3+lst12*2+lst21
+totalblulost=lst30*3+lst21*2+lst12
+
+print("Red lose {} armies\nBlu lose {} armies".format(totalredlost,totalblulost))
