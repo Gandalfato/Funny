@@ -1,0 +1,51 @@
+def dadi():
+  from random import randrange
+  import heapq
+
+  blu= [randrange(1,7,1),randrange(1,7,1)]
+  red= [randrange(1,7,1),randrange(1,7,1),randrange(1,7,1) ]
+
+  max1blu=max(blu)
+  max1red=max(red)
+  lstblu=0
+  lstred=0
+  if max1blu >= max1red:
+    lstred-=1
+  else:
+    lstblu-=1
+  blu.remove(max(blu))
+  red.remove(max(red))
+  max2blu=max(blu)
+  max2red=max(red)
+  if max2blu >= max2red:
+    lstred-=1
+  else:
+    lstblu-=1
+  return (lstblu,lstred)
+
+#richiedere quanti lanci
+print ("How many times do you want to rolls the dice?")
+rolls=int(input())
+
+rollnum=0
+lst11=0 #entrambi perdono una armata
+lst02=0 #red perde due armate
+lst20=0 #blu perde due armate
+
+while rollnum<rolls:
+  vardado=dadi()
+  if vardado==(-1, -1):
+    lst11+=1
+  elif vardado==(0, -2):
+    lst02+=1
+  elif vardado==(-2, 0):
+    lst20+=1
+  
+  rollnum+=1
+
+print ("Blu wins and red lose {} times\nRed wins and blu lose {} times\nGame draw {} times".format(lst02,lst20,lst11))
+
+#total army lost
+totalred=lst02*2+lst11
+totalblu=lst20*2+lst11
+print("Red lose {} armies\nBlu lose {} armies".format(totalred,totalblu))
